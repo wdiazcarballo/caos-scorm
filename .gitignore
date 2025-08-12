@@ -1,0 +1,145 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+# IDE - IntelliJ/WebStorm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# IDE - Sublime
+*.sublime-project
+*.sublime-workspace
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Windows
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.tmp/
+tmp/
+temp/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
+out/
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# SCORM packages (keep only source files)
+# Uncomment if you want to exclude built packages
+# os-kitchen-scorm.zip
+# *.zip
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Cache
+.cache/
+.parcel-cache/
+.npm/
+.yarn/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python (if using Python scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+
+# Documentation builds
+docs/_build/
+docs/.doctrees/
+
+# Miscellaneous
+.sass-cache/
+.connect.lock
+.lock-wscript
+
+# Custom project specific
+*.draft.html
+test-*.html
+backup/
+archives/
+old/
+
+# Keep these files
+!imsmanifest.xml
+!index.html
+!scorm_api_wrapper.js
+!CLAUDE.md
+!README.md
