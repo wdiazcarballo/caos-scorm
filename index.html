@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบปฏิบัติการผ่านการจัดการร้านอาหาร</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pipwerks-scorm-api-wrapper/1.1.20130301/scorm-api-wrapper.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sarabun', Arial, sans-serif;
+            background: linear-gradient(135deg, #fff5ee 0%, #fef3c7 100%);
+            min-height: 100vh;
+            direction: ltr;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #d97706;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #78716c;
+            font-size: 1.2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #059669);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .section {
+            background: white;
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h2 {
+            color: #d97706;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .era-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .era-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .era-card:hover {
+            border-color: #d97706;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .era-card.selected {
+            border-color: #d97706;
+            background: #fff7ed;
+            box-shadow: 0 8px 25px rgba(217, 119, 6, 0.2);
+        }
+
+        .era-card h3 {
+            color: #d97706;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .era-card p {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .simulation-area {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .simulation-area.active {
+            background: #ecfdf5;
+            border-color: #10b981;
+        }
+
+        .chef-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .chef {
+            width: 80px;
+            height: 80px;
+            background: #fbbf24;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            position: relative;
+            animation: bounce 2s infinite;
+        }
+
+        .chef.working {
+            background: #ef4444;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .counter-space {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            max-width: 400px;
+        }
+
+        .counter-slot {
+            height: 60px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .counter-slot.occupied {
+            background: #fbbf24;
+            border-color: #f59e0b;
+            color: white;
+            font-weight: bold;
+        }
+
+        .quiz-container {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .quiz-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 15px;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .quiz-option:hover {
+            border-color: #0ea5e9;
+            background: #f0f9ff;
+        }
+
+        .quiz-option.selected {
+            border-color: #0ea5e9;
+            background: #0ea5e9;
+            color: white;
+        }
+
+        .quiz-option.correct {
+            border-color: #10b981;
+            background: #10b981;
+            color: white;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        .btn-primary {
+            background: #d97706;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #b45309;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d97706;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        .explanation {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .explanation h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .era-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🍳 ระบบปฏิบัติการผ่านการจัดการร้านอาหาร</h1>
+            <p>เรียนรู้หลักการของระบบปฏิบัติการผ่านการจำลองการทำงานของครัวในร้านอาหาร</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <p id="progressText">ความคืบหน้า: 0%</p>
+        </div>
+
+        <!-- Section 1: Introduction -->
+        <div class="section active" id="section1">
+            <h2>🎯 บทนำ: ระบบปฏิบัติการคืออะไร?</h2>
+            
+            <div class="explanation">
+                <h4>จินตนาการว่าคอมพิวเตอร์เปรียบเหมือนร้านอาหาร</h4>
+                <p><strong>ฮาร์ดแวร์</strong> = ครัว (เตา ตู้เย็น เคาน์เตอร์ อุปกรณ์ต่างๆ)</p>
+                <p><strong>โปรแกรม (งาน)</strong> = สูตรอาหารที่พ่อครัวกำลังทำ</p>
+                <p><strong>ข้อมูล</strong> = วัตถุดิบ (แป้ง ไข่ ผัก)</p>
+                <p><strong>หน่วยความจำชั่วคราว (RAM)</strong> = พื้นที่เคาน์เตอร์ที่ใช้ทำงาน</p>
+                <p><strong>หน่วยจัดเก็บถาวร (Disk)</strong> = ตู้เย็นและห้องเก็บของที่เก็บวัตถุดิบระยะยาว</p>
+            </div>
+
+            <div class="simulation-area">
+                <h3>🏪 ร้านอาหารแห่งการเรียนรู้</h3>
+                <p>ในโมดูลนี้ คุณจะได้เรียนรู้วิวัฒนาการของระบบปฏิบัติการ</p>
+                <p>ตั้งแต่ยุคที่ไม่มีระบบปฏิบัติการ จนถึงระบบสมัยใหม่</p>
+                
+                <div class="chef-container">
+                    <div class="chef">👨‍🍳</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Era Overview -->
+        <div class="section" id="section2">
+            <h2>📚 ยุคสมัยของระบบปฏิบัติการ</h2>
+            
+            <div class="era-cards">
+                <div class="era-card" data-era="0">
+                    <h3>ยุคไม่มี OS - พ่อครัวคนเดียว</h3>
+                    <p>ก่อนมีระบบปฏิบัติการ: พ่อครัวคนเดียวทำอาหารจานเดียวต่อครั้ง ต้องจัดการทุกอย่างด้วยตนเอง</p>
+                </div>
+                
+                <div class="era-card" data-era="1">
+                    <h3>ยุค Batch Processing - ผู้จัดการครัว</h3>
+                    <p>ระบบปฏิบัติการแรก: มีผู้จัดการครัวช่วยเตรียมและเก็บของ แต่ยังทำอาหารทีละจาน</p>
+                </div>
+                
+                <div class="era-card" data-era="2">
+                    <h3>ยุค Time-Sharing - พ่อครัวหลายคน</h3>
+                    <p>พ่อครัวหลายคนใช้ครัวร่วมกัน! แต่ละคนได้ใช้เคาน์เตอร์เป็นช่วงเวลาสั้นๆ</p>
+                </div>
+                
+                <div class="era-card" data-era="3">
+                    <h3>ยุคสมัยใหม่ - ครัวที่มีประสิทธิภาพสูงสุด</h3>
+                    <p>การจัดตารางขั้นสูงและการจัดการหน่วยความจำ มีประสิทธิภาพสูงสุด!</p>
+                </div>
+            </div>
+
+            <div class="quiz-container" id="quiz1">
+                <div class="quiz-question">คำถาม: ระบบปฏิบัติการมีหน้าที่หลักในการทำอะไร?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-answer="a">ก. จัดการเฉพาะไฟล์เท่านั้น</div>
+                    <div class="quiz-option" data-answer="b">ข. จัดการทรัพยากรของระบบและเป็นตัวกลางระหว่างฮาร์ดแวร์กับซอฟต์แวร์</div>
+                    <div class="quiz-option" data-answer="c">ค. ทำงานเฉพาะกับอินเทอร์เน็ต</div>
+                    <div class="quiz-option" data-answer="d">ง. เปิดโปรแกรมเท่านั้น</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Simulation -->
+        <div class="section" id="section3">
+            <h2>🎮 จำลองการทำงานของครัว</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="timeValue">0</div>
+                    <div class="stat-label">เวลา (วินาที)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="ordersValue">0</div>
+                    <div class="stat-label">ออเดอร์ที่เสร็จ</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="chefsValue">1</div>
+                    <div class="stat-label">จำนวนพ่อครัว</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="efficiencyValue">0</div>
+                    <div class="stat-label">ประสิทธิภาพ (%)</div>
+                </div>
+            </div>
+
+            <div class="simulation-area" id="simulationArea">
+                <h3 id="currentEraTitle">เลือกยุคสมัยเพื่อเริ่มจำลอง</h3>
+                <div class="chef-container" id="chefContainer">
+                    <div class="chef">👨‍🍳</div>
+                </div>
+                
+                <div>
+                    <h4>พื้นที่เคาน์เตอร์ (RAM)</h4>
+                    <div class="counter-space" id="counterSpace">
+                        <div class="counter-slot">ว่าง</div>
+                        <div class="counter-slot">ว่าง</div>
+                        <div class="counter-slot">ว่าง</div>
+                        <div class="counter-slot">ว่าง</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <button class="btn btn-primary" id="startSimulation">เริ่มจำลอง</button>
+                <button class="btn btn-secondary" id="resetSimulation">รีเซ็ต</button>
+            </div>
+
+            <div class="quiz-container" id="quiz2">
+                <div class="quiz-question">คำถาม: เมื่อพ่อครัวหลายคนใช้ครัวร่วมกัน นี่เป็นการจำลองแนวคิดใดของระบบปฏิบัติการ?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-answer="a">ก. การประมวลผลแบบซีเรียล</div>
+                    <div class="quiz-option" data-answer="b">ข. การแบ่งเวลาใช้งาน (Time-sharing)</div>
+                    <div class="quiz-option" data-answer="c">ค. การจัดเก็บไฟล์</div>
+                    <div class="quiz-option" data-answer="d">ง. การรักษาความปลอดภัย</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Memory Management -->
+        <div class="section" id="section4">
+            <h2>💾 การจัดการหน่วยความจำ</h2>
+            
+            <div class="explanation">
+                <h4>ความแตกต่างระหว่างหน่วยความจำชั่วคราวและถาวร</h4>
+                <p><strong>พื้นที่เคาน์เตอร์ (RAM)</strong> = หน่วยความจำชั่วคราว ใช้สำหรับทำงานขณะนั้น เมื่อไฟดับจะหายไป</p>
+                <p><strong>ห้องเก็บของ/ตู้เย็น (Disk)</strong> = หน่วยจัดเก็บถาวร เก็บข้อมูลไว้แม้ไฟดับ</p>
+                <p><strong>การย้ายข้อมูล</strong> = เมื่อต้องการใช้งาน ต้องย้ายจากที่เก็บถาวรมาที่เคาน์เตอร์</p>
+            </div>
+
+            <div class="simulation-area">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start;">
+                    <div>
+                        <h4>🗄️ ที่เก็บถาวร (Disk Storage)</h4>
+                        <div style="background: #dbeafe; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <p>📁 สูตรพาสต้า</p>
+                            <p>📁 สูตรพิซซ่า</p>
+                            <p>📁 สูตรสลัด</p>
+                            <p>📁 วัตถุดิบทั้งหมด</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4>⚡ พื้นที่ทำงาน (RAM)</h4>
+                        <div class="counter-space">
+                            <div class="counter-slot occupied">พาสต้า</div>
+                            <div class="counter-slot occupied">วัตถุดิบ</div>
+                            <div class="counter-slot">ว่าง</div>
+                            <div class="counter-slot">ว่าง</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-container" id="quiz3">
+                <div class="quiz-question">คำถาม: เหตุใด RAM จึงเร็วกว่า Hard Disk แต่สูญหายเมื่อไฟดับ?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-answer="a">ก. เพราะ RAM ใช้เทคโนโลยีแม่เหล็ก</div>
+                    <div class="quiz-option" data-answer="b">ข. เพราะ RAM ใช้พลังงานไฟฟ้าในการเก็บข้อมูล ทำให้เร็วแต่ต้องมีไฟฟ้าตลอดเวลา</div>
+                    <div class="quiz-option" data-answer="c">ค. เพราะ RAM มีขนาดเล็กกว่า</div>
+                    <div class="quiz-option" data-answer="d">ง. เพราะ Hard Disk ชำรุดง่าย</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Summary -->
+        <div class="section" id="section5">
+            <h2>📋 สรุปและทดสอบความเข้าใจ</h2>
+            
+            <div class="explanation">
+                <h4>สิ่งที่คุณได้เรียนรู้</h4>
+                <p><strong>วิวัฒนาการของ OS:</strong> จากการทำงานแบบง่ายๆ ไปสู่ระบบที่ซับซ้อนและมีประสิทธิภาพ</p>
+                <p><strong>การจัดการกระบวนการ:</strong> แต่ละออเดอร์เปรียบเหมือนโปรแกรมที่ทำงานในคอมพิวเตอร์</p>
+                <p><strong>การจัดการหน่วยความจำ:</strong> ความแตกต่างระหว่างหน่วยความจำชั่วคราวและถาวร</p>
+                <p><strong>การกำหนดตารางงาน:</strong> วิธีที่ระบบจัดสรรทรัพยากรให้งานต่างๆ</p>
+            </div>
+
+            <div class="quiz-container" id="finalQuiz">
+                <div class="quiz-question">คำถามสุดท้าย: หากคุณเป็นผู้พัฒนาระบบปฏิบัติการสำหรับร้านอาหารขนาดใหญ่ คุณจะให้ความสำคัญกับอะไรมากที่สุด?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-answer="a">ก. ให้พ่อครัวคนเดียวทำอาหารทั้งหมด</div>
+                    <div class="quiz-option" data-answer="b">ข. การจัดตารางการทำงานที่มีประสิทธิภาพและการใช้ทรัพยากรอย่างเหมาะสม</div>
+                    <div class="quiz-option" data-answer="c">ค. ใช้เฉพาะอุปกรณ์ที่แพงที่สุด</div>
+                    <div class="quiz-option" data-answer="d">ง. ไม่มีการวางแผนล่วงหน้า</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="btn btn-secondary" id="prevBtn" disabled>ก่อนหน้า</button>
+            <span id="sectionIndicator">ส่วนที่ 1 จาก 5</span>
+            <button class="btn btn-primary" id="nextBtn">ถัดไป</button>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // SCORM API initialization
+        const scorm = pipwerks.SCORM;
+        let isInitialized = false;
+        
+        function initializeSCORM() {
+            if (scorm.init()) {
+                isInitialized = true;
+                scorm.set("cmi.core.lesson_status", "incomplete");
+                scorm.set("cmi.core.score.min", "0");
+                scorm.set("cmi.core.score.max", "100");
+                console.log("SCORM initialized successfully");
+            } else {
+                console.log("SCORM initialization failed, running in standalone mode");
+            }
+        }
+
+        function updateSCORMProgress(progress) {
+            if (isInitialized) {
+                scorm.set("cmi.core.lesson_location", currentSection.toString());
+                scorm.set("cmi.core.score.raw", progress.toString());
+                if (progress >= 80) {
+                    scorm.set("cmi.core.lesson_status", "passed");
+                } else if (progress >= 100) {
+                    scorm.set("cmi.core.lesson_status", "completed");
+                } else {
+                    scorm.set("cmi.core.lesson_status", "incomplete");
+                }
+                scorm.save();
+            }
+        }
+
+        function finalizeSCORM() {
+            if (isInitialized) {
+                scorm.quit();
+            }
+        }
+
+        // Initialize SCORM when page loads
+        window.addEventListener('load', initializeSCORM);
+        window.addEventListener('beforeunload', finalizeSCORM);
+
+        // Game state
+        let currentSection = 1;
+        let selectedEra = -1;
+        let isSimulationRunning = false;
+        let simulationTime = 0;
+        let completedOrders = 0;
+        let score = 0;
+        let quizAnswers = {};
+
+        const eras = [
+            {
+                name: "ยุคไม่มี OS",
+                chefs: 1,
+                efficiency: 20,
+                description: "พ่อครัวคนเดียวทำทุกอย่างเอง"
+            },
+            {
+                name: "ยุค Batch Processing",
+                chefs: 1,
+                efficiency: 40,
+                description: "มีผู้จัดการครัวช่วย"
+            },
+            {
+                name: "ยุค Time-sharing",
+                chefs: 3,
+                efficiency: 70,
+                description: "พ่อครัวหลายคนแบ่งเวลากัน"
+            },
+            {
+                name: "ยุคสมัยใหม่",
+                chefs: 4,
+                efficiency: 95,
+                description: "ระบบที่มีประสิทธิภาพสูงสุด"
+            }
+        ];
+
+        // DOM elements
+        const sections = document.querySelectorAll('.section');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const sectionIndicator = document.getElementById('sectionIndicator');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection(1);
+            setupEventListeners();
+            updateProgress();
+        });
+
+        function setupEventListeners() {
+            // Navigation
+            prevBtn.addEventListener('click', () => navigateSection(-1));
+            nextBtn.addEventListener('click', () => navigateSection(1));
+
+            // Era selection
+            document.querySelectorAll('.era-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    selectEra(parseInt(this.dataset.era));
+                });
+            });
+
+            // Quiz handling
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    handleQuizAnswer(this);
+                });
+            });
+
+            // Simulation controls
+            document.getElementById('startSimulation').addEventListener('click', startSimulation);
+            document.getElementById('resetSimulation').addEventListener('click', resetSimulation);
+        }
+
+        function showSection(sectionNum) {
+            sections.forEach(section => section.classList.remove('active'));
+            document.getElementById(`section${sectionNum}`).classList.add('active');
+            
+            currentSection = sectionNum;
+            updateNavigation();
+            updateProgress();
+            
+            // Update SCORM progress
+            const progress = (sectionNum / 5) * 100;
+            updateSCORMProgress(progress);
+        }
+
+        function navigateSection(direction) {
+            const newSection = currentSection + direction;
+            if (newSection >= 1 && newSection <= 5) {
+                showSection(newSection);
+            }
+        }
+
+        function updateNavigation() {
+            prevBtn.disabled = currentSection === 1;
+            nextBtn.disabled = currentSection === 5;
+            nextBtn.textContent = currentSection === 5 ? 'เสร็จสิ้น' : 'ถัดไป';
+            sectionIndicator.textContent = `ส่วนที่ ${currentSection} จาก 5`;
+        }
+
+        function updateProgress() {
+            let progress = (currentSection - 1) * 20; // Base progress from sections
+            
+            // Add bonus points for quiz answers and interactions
+            progress += Object.keys(quizAnswers).length * 5;
+            
+            if (selectedEra >= 0) progress += 10;
+            if (completedOrders > 0) progress += 10;
+            
+            progress = Math.min(100, progress);
+            
+            progressBar.style.width = progress + '%';
+            progressText.textContent = `ความคืบหน้า: ${Math.round(progress)}%`;
+            
+            updateSCORMProgress(progress);
+        }
+
+        function selectEra(eraIndex) {
+            selectedEra = eraIndex;
+            
+            // Update UI
+            document.querySelectorAll('.era-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`[data-era="${eraIndex}"]`).classList.add('selected');
+            
+            // Update simulation area
+            updateSimulationDisplay();
+            showToast(`เลือก${eras[eraIndex].name}แล้ว!`);
+            updateProgress();
+        }
+
+        function updateSimulationDisplay() {
+            if (selectedEra < 0) return;
+            
+            const era = eras[selectedEra];
+            document.getElementById('currentEraTitle').textContent = era.name;
+            document.getElementById('chefsValue').textContent = era.chefs;
+            
+            // Update chef display
+            const chefContainer = document.getElementById('chefContainer');
+            chefContainer.innerHTML = '';
+            for (let i = 0; i < era.chefs; i++) {
+                const chef = document.createElement('div');
+                chef.className = 'chef';
+                chef.textContent = '👨‍🍳';
+                if (isSimulationRunning) {
+                    chef.classList.add('working');
+                }
+                chefContainer.appendChild(chef);
+            }
+        }
+
+        function startSimulation() {
+            if (selectedEra < 0) {
+                showToast('กรุณาเลือกยุคสมัยก่อน!', 'error');
+                return;
+            }
+            
+            isSimulationRunning = true;
+            simulationTime = 0;
+            completedOrders = 0;
+            
+            updateSimulationDisplay();
+            
+            const interval = setInterval(() => {
+                simulationTime += 0.1;
+                document.getElementById('timeValue').textContent = simulationTime.toFixed(1);
+                
+                // Simulate order completion based on era efficiency
+                if (Math.random() < eras[selectedEra].efficiency / 1000) {
+                    completedOrders++;
+                    document.getElementById('ordersValue').textContent = completedOrders;
+                    updateCounterSpace();
+                }
+                
+                const efficiency = Math.round((completedOrders / Math.max(1, simulationTime)) * 10);
+                document.getElementById('efficiencyValue').textContent = Math.min(100, efficiency);
+                
+                if (simulationTime >= 30) { // Stop after 30 seconds
+                    clearInterval(interval);
+                    isSimulationRunning = false;
+                    showToast(`จำลองเสร็จสิ้น! ทำอาหารได้ ${completedOrders} จาน`);
+                    updateProgress();
+                }
+            }, 100);
+            
+            showToast('เริ่มจำลองการทำงาน!');
+        }
+
+        function resetSimulation() {
+            isSimulationRunning = false;
+            simulationTime = 0;
+            completedOrders = 0;
+            
+            document.getElementById('timeValue').textContent = '0';
+            document.getElementById('ordersValue').textContent = '0';
+            document.getElementById('efficiencyValue').textContent = '0';
+            
+            // Reset counter space
+            document.querySelectorAll('.counter-slot').forEach(slot => {
+                slot.classList.remove('occupied');
+                slot.textContent = 'ว่าง';
+            });
+            
+            updateSimulationDisplay();
+            showToast('รีเซ็ตเสร็จสิ้น');
+        }
+
+        function updateCounterSpace() {
+            const slots = document.querySelectorAll('.counter-slot');
+            const occupiedCount = Math.min(eras[selectedEra].chefs, slots.length);
+            
+            slots.forEach((slot, index) => {
+                if (index < occupiedCount && Math.random() < 0.7) {
+                    slot.classList.add('occupied');
+                    slot.textContent = 'กำลังทำ';
+                } else {
+                    slot.classList.remove('occupied');
+                    slot.textContent = 'ว่าง';
+                }
+            });
+        }
+
+        function handleQuizAnswer(selectedOption) {
+            const quizContainer = selectedOption.closest('.quiz-container');
+            const options = quizContainer.querySelectorAll('.quiz-option');
+            const quizId = quizContainer.id;
+            
+            // Remove previous selections
+            options.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Mark selected option
+            selectedOption.classList.add('selected');
+            
+            // Define correct answers
+            const correctAnswers = {
+                'quiz1': 'b',
+                'quiz2': 'b',
+                'quiz3': 'b',
+                'finalQuiz': 'b'
+            };
+            
+            const selectedAnswer = selectedOption.dataset.answer;
+            const isCorrect = selectedAnswer === correctAnswers[quizId];
+            
+            // Show correct/incorrect
+            setTimeout(() => {
+                options.forEach(opt => {
+                    if (opt.dataset.answer === correctAnswers[quizId]) {
+                        opt.classList.add('correct');
+                    } else if (opt === selectedOption && !isCorrect) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+                
+                quizAnswers[quizId] = isCorrect;
+                showToast(isCorrect ? 'ถูกต้อง! 🎉' : 'ผิด แต่ลองใหม่ได้ 💪');
+                updateProgress();
+            }, 500);
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast show ${type === 'error' ? 'error' : ''}`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Handle page visibility for SCORM
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                updateSCORMProgress((currentSection / 5) * 100);
+            }
+        });
+    </script>
+</body>
+</html>
