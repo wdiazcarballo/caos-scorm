@@ -359,6 +359,16 @@
             color: #6b7280;
         }
 
+        .station.switching {
+            animation: switchPulse 0.5s ease;
+        }
+        
+        @keyframes switchPulse {
+            0% { background: #f9fafb; }
+            50% { background: #ddd6fe; }
+            100% { background: #f9fafb; }
+        }
+        
         .station-task {
             font-size: 0.8em;
             color: #667eea;
@@ -690,6 +700,144 @@
             text-align: center;
             padding: 40px 20px;
         }
+        
+        /* Review Screen Styles */
+        .review-screen {
+            text-align: center;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .review-title {
+            font-size: 2.5em;
+            color: #1f2937;
+            margin-bottom: 30px;
+            animation: titlePulse 2s ease-in-out infinite;
+        }
+        
+        .review-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        
+        .review-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .review-section h4 {
+            color: #1f2937;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .review-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .review-section li {
+            padding: 8px 0;
+            color: #4b5563;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .review-section li:before {
+            content: '✅';
+            position: absolute;
+            left: 0;
+        }
+        
+        .progress-overview {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .era-progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .era-progress-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .era-progress-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .era-progress-card.not-played {
+            background: #e5e7eb;
+            color: #9ca3af;
+        }
+        
+        .era-progress-card h5 {
+            margin: 10px 0 5px 0;
+            font-size: 1em;
+        }
+        
+        .era-progress-score {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .final-score-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .final-score-display {
+            font-size: 4em;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .breakdown-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .breakdown-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .breakdown-value {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
 
         .results-title {
             font-size: 2.5em;
@@ -882,6 +1030,119 @@
                 transform: translate(-50%, -50%) scale(0) rotate(360deg);
             }
         }
+        
+        /* Customer Card Selection Styles - Fixed for Era 1 */
+        .customer-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 3px solid transparent;
+            position: relative;
+        }
+
+        .customer-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-color: #a78bfa;
+        }
+        
+        .customer-card.selected {
+            border-color: #7c3aed !important;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+            transform: scale(1.02);
+        }
+        
+        .customer-card.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: #7c3aed;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .customer-card.angry {
+            animation: shake 0.5s infinite;
+            border-color: #ef4444 !important;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        @keyframes chefWork {
+            0%, 100% { transform: rotate(0deg) scale(1.0); }
+            25% { transform: rotate(-10deg) scale(1.1); }
+            75% { transform: rotate(10deg) scale(1.1); }
+        }
+        
+        .station-chef {
+            transition: transform 0.3s ease;
+            font-size: 2em;
+        }
+        
+        .station.active .station-chef {
+            animation: chefWork 0.5s infinite;
+        }
+        
+        .customer-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .customer-face {
+            font-size: 2em;
+        }
+        
+        .customer-order {
+            font-weight: bold;
+            color: #374151;
+        }
+        
+        .customer-patience {
+            margin-top: 10px;
+        }
+        
+        .patience-bar {
+            width: 100%;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        
+        .patience-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            transition: width 0.3s, background 0.3s;
+        }
+        
+        .customer-card.angry .patience-fill {
+            background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+        }
+        
+        .wait-time {
+            font-size: 0.9em;
+            color: #6b7280;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -921,6 +1182,43 @@
                         เรียนรู้การทำงานของระบบปฏิบัติการผ่านการบริหารร้านอาหาร<br>
                         คุณจะได้เป็นเจ้าของร้านและเรียนรู้วิธีจัดการทรัพยากรให้มีประสิทธิภาพ!
                     </p>
+                    
+                    <!-- Game Description -->
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 16px; margin: 20px auto; max-width: 700px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                        <h2 style="margin-bottom: 15px; font-size: 1.4em;">📚 คำอธิบายเกม</h2>
+                        <p style="line-height: 1.8; text-align: left;">
+                            <strong>"Restaurant OS Simulator"</strong> เป็นเกมการศึกษาที่ออกแบบมาเพื่อให้ผู้เรียนเข้าใจหลักการทำงานของระบบปฏิบัติการคอมพิวเตอร์ 
+                            โดยใช้การเปรียบเทียบกับการบริหารจัดการร้านอาหาร ผู้เล่นจะได้สวมบทบาทเป็นผู้จัดการร้านอาหารในยุคต่างๆ 
+                            ตั้งแต่ยุคที่ต้องทำทุกอย่างด้วยมือ (Manual Operation) จนถึงยุคที่มีระบบจัดการอัตโนมัติ (Modern OS) 
+                            ผ่านการเล่นเกม ผู้เรียนจะเข้าใจถึงวิวัฒนาการและความสำคัญของระบบปฏิบัติการในการจัดการทรัพยากรคอมพิวเตอร์
+                        </p>
+                    </div>
+                    
+                    <!-- Game Objectives -->
+                    <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 25px; border-radius: 16px; margin: 20px auto; max-width: 700px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                        <h2 style="margin-bottom: 15px; font-size: 1.4em;">🎯 วัตถุประสงค์การเรียนรู้</h2>
+                        <ul style="text-align: left; line-height: 1.8; list-style: none; padding: 0;">
+                            <li style="margin-bottom: 10px;">✅ <strong>เข้าใจวิวัฒนาการ:</strong> เรียนรู้พัฒนาการของระบบปฏิบัติการตั้งแต่อดีตถึงปัจจุบัน</li>
+                            <li style="margin-bottom: 10px;">✅ <strong>เข้าใจ CPU Scheduling:</strong> วิธีการจัดลำดับและแบ่งเวลาการทำงานของหน่วยประมวลผล</li>
+                            <li style="margin-bottom: 10px;">✅ <strong>เข้าใจ Memory Management:</strong> การจัดการหน่วยความจำและความแตกต่างของ RAM กับ Storage</li>
+                            <li style="margin-bottom: 10px;">✅ <strong>เข้าใจ Process Management:</strong> การจัดการหลายโปรเซสพร้อมกันและ Context Switching</li>
+                            <li style="margin-bottom: 10px;">✅ <strong>ฝึกทักษะการแก้ปัญหา:</strong> วางแผนและจัดการทรัพยากรภายใต้ข้อจำกัดในแต่ละยุค</li>
+                            <li style="margin-bottom: 10px;">✅ <strong>ประเมินความเข้าใจ:</strong> ทดสอบความรู้ผ่านคำถามท้ายแต่ละด่าน</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- How to Play -->
+                    <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 25px; border-radius: 16px; margin: 20px auto; max-width: 700px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                        <h2 style="margin-bottom: 15px; font-size: 1.4em;">🎮 วิธีการเล่น</h2>
+                        <ol style="text-align: left; line-height: 1.8; padding-left: 20px;">
+                            <li style="margin-bottom: 10px;"><strong>เลือกยุค:</strong> เริ่มจากยุค Manual Operation และปลดล็อคยุคถัดไปตามลำดับ</li>
+                            <li style="margin-bottom: 10px;"><strong>รับออเดอร์:</strong> คลิกเลือกลูกค้าและกดรับออเดอร์เข้าครัว</li>
+                            <li style="margin-bottom: 10px;"><strong>จัดการทรัพยากร:</strong> ดูแล RAM (เคาน์เตอร์) และ CPU (พ่อครัว) ไม่ให้เต็ม</li>
+                            <li style="margin-bottom: 10px;"><strong>รักษาความพึงพอใจ:</strong> ทำอาหารให้เร็วก่อนลูกค้าหมดความอดทน</li>
+                            <li style="margin-bottom: 10px;"><strong>อัพเกรด:</strong> ใช้เงินที่ได้ซื้ออุปกรณ์เพิ่มประสิทธิภาพ</li>
+                            <li style="margin-bottom: 10px;"><strong>ตอบคำถาม:</strong> ทดสอบความเข้าใจหลังจบแต่ละด่าน</li>
+                        </ol>
+                    </div>
 
                     <div class="concept-grid">
                         <div class="concept-card">
@@ -971,42 +1269,56 @@
                     </p>
 
                     <div class="era-selector">
-                        <div class="era-card" onclick="selectEra(1)" id="era1">
-                            <div class="era-icon">🕰️</div>
-                            <div class="era-name">ยุคโบราณ</div>
+                        <div class="era-card" id="era1">
+                            <div class="era-icon">⚙️</div>
+                            <div class="era-name">Manual Operation</div>
                             <div class="era-description">
-                                พ่อครัว 1 คน ทำได้ทีละจาน<br>
-                                <small>(ไม่มี OS - ทำงานช้ามาก)</small>
+                                <strong>1940s - ไม่มี OS</strong><br>
+                                ทำได้ทีละงาน ไม่มีระบบคิว<br>
+                                <small style="color: #dc2626;">⚠️ No multitasking!</small>
                             </div>
                         </div>
                         <div class="era-card locked" id="era2">
                             <div class="era-icon">📦</div>
-                            <div class="era-name">ยุคมีผู้จัดการ</div>
+                            <div class="era-name">Batch Processing</div>
                             <div class="era-description">
-                                มีผู้จัดการช่วยเตรียมวัตถุดิบ<br>
-                                <small>(Batch Processing - เร็วขึ้น)</small>
+                                <strong>1950s - ระบบแบทช์</strong><br>
+                                จัดคิวอัตโนมัติ ทำเป็นชุด<br>
+                                <small style="color: #059669;">✅ Job queue, Batch optimization</small>
                             </div>
                         </div>
                         <div class="era-card locked" id="era3">
                             <div class="era-icon">🔄</div>
-                            <div class="era-name">ยุคหลายพ่อครัว</div>
+                            <div class="era-name">Time-Sharing</div>
                             <div class="era-description">
-                                พ่อครัวหลายคนผลัดกันทำ<br>
-                                <small>(Time-Sharing - ทำพร้อมกันได้)</small>
+                                <strong>1960s - Multiprogramming</strong><br>
+                                Context switching ระหว่างงาน<br>
+                                <small style="color: #059669;">✅ CPU time slicing</small>
                             </div>
                         </div>
                         <div class="era-card locked" id="era4">
                             <div class="era-icon">🚀</div>
-                            <div class="era-name">ยุคสมัยใหม่</div>
+                            <div class="era-name">Modern OS</div>
                             <div class="era-description">
-                                ระบบอัตโนมัติเต็มรูปแบบ<br>
-                                <small>(Modern OS - มีประสิทธิภาพสูง)</small>
+                                <strong>1980s+ - Preemptive</strong><br>
+                                Priority scheduling, Virtual memory<br>
+                                <small style="color: #059669;">✅ Advanced scheduling</small>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Learning Screen -->
+            <div class="screen" id="learningScreen">
+                <div class="welcome-screen">
+                    <h2 class="welcome-title" id="learningTitle">📚 เรียนรู้เกี่ยวกับ OS</h2>
+                    <div id="learningContent" style="max-width: 800px; margin: 0 auto;">
+                        <!-- Learning content will be inserted here -->
+                    </div>
+                </div>
+            </div>
+            
             <!-- Main Game Screen -->
             <div class="screen" id="gameScreen">
                 <div class="game-screen">
@@ -1078,6 +1390,10 @@
                             <button class="btn danger" onclick="clearMemory()" style="margin-top: 10px;">
                                 🧹 ล้างเคาน์เตอร์
                             </button>
+                            <div id="batchIndicator" style="margin-top: 10px; padding: 10px; background: #fef3c7; border-radius: 8px; display: none;">
+                                <strong>📦 Batch Mode</strong><br>
+                                <small>กดรับออเดอร์เพื่อรับ 3 คิวพร้อมกัน</small>
+                            </div>
                         </div>
 
                         <!-- Info -->
@@ -1127,9 +1443,40 @@
                         <!-- Show what was unlocked -->
                     </div>
 
-                    <div class="btn-group">
+                    <div class="btn-group" id="resultsButtons">
                         <button class="btn" onclick="showEraSelection()">🔄 เลือกยุคใหม่</button>
                         <button class="btn success" onclick="nextLevel()">➡️ ด่านถัดไป</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Knowledge Review Screen -->
+            <div class="screen" id="reviewScreen">
+                <div class="review-screen">
+                    <h1 class="review-title">🎓 สรุปความรู้ที่ได้เรียน</h1>
+                    
+                    <div class="review-content" id="reviewContent">
+                        <!-- Content will be dynamically added -->
+                    </div>
+                    
+                    <div class="progress-overview" id="progressOverview">
+                        <h3>📊 ผลการเรียนรู้ของคุณ</h3>
+                        <div class="era-progress-grid" id="eraProgressGrid">
+                            <!-- Era progress cards will be added here -->
+                        </div>
+                    </div>
+                    
+                    <div class="final-score-section">
+                        <h3>🏆 คะแนนรวมทั้งหมด</h3>
+                        <div class="final-score-display" id="finalTotalScore">0</div>
+                        <div class="score-breakdown" id="scoreBreakdown">
+                            <!-- Score breakdown will be added here -->
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button class="btn" onclick="restartGame()">🔄 เริ่มใหม่</button>
+                        <button class="btn success" onclick="completeAndExit()">✅ จบบทเรียน</button>
                     </div>
                 </div>
             </div>
@@ -1254,6 +1601,17 @@
             hasTimeSharing: false,
             hasModernOS: false,
             
+            // Game arrays
+            customerQueue: [],
+            activeOrders: [],
+            selectedCustomer: null,
+            
+            // Tracking completed eras and scores
+            erasCompleted: [],
+            eraScores: {},
+            totalGameScore: 0,
+            quizScores: {},
+            
             // Upgrades purchased
             upgrades: {
                 extraChef: false,
@@ -1267,6 +1625,7 @@
             // Active orders
             activeOrders: [],
             customerQueue: [],
+            batchQueue: [], // For Era 2 batch processing
             
             // Statistics
             stats: {
@@ -1299,47 +1658,71 @@
             { face: '😡', patience: 20, tip: 0.2 }
         ];
 
-        // Era configurations
+        // Era configurations - mimicking real OS evolution
         const eraConfigs = [
             {
                 id: 1,
-                name: 'ยุคโบราณ',
-                description: 'พ่อครัว 1 คน ทำทีละจาน',
+                name: 'ยุคไม่มี OS (1940s)',
+                description: 'Manual Operation - ทำทีละงาน ต้องรอให้เสร็จก่อนรับงานใหม่',
                 chefs: 1,
                 speed: 0.5,
                 ramLimit: 50,
                 cpuLimit: 50,
-                features: []
+                features: [],
+                maxOrders: 1, // Can only process 1 order at a time
+                canQueue: false, // Cannot queue orders
+                autoBatch: false,
+                contextSwitch: false,
+                priority: false,
+                info: '⚠️ ไม่มีระบบคิว - ต้องทำให้เสร็จก่อนรับใหม่'
             },
             {
                 id: 2,
-                name: 'ยุคมีผู้จัดการ',
-                description: 'มีผู้จัดการช่วยเตรียมวัตถุดิบ',
+                name: 'ยุค Batch Processing (1950s)',
+                description: 'Batch System - รับออเดอร์ได้หลายรายการ แต่ทำทีละชุด',
                 chefs: 1,
-                speed: 1.0,
-                ramLimit: 75,
-                cpuLimit: 75,
-                features: ['manager', 'autoPrep']
+                speed: 0.8,
+                ramLimit: 60,
+                cpuLimit: 50,
+                features: ['batchProcess', 'jobQueue'],
+                maxOrders: 3, // Can queue up to 3 orders
+                canQueue: true, // Can queue orders
+                autoBatch: true, // Process in batches
+                contextSwitch: false,
+                priority: false,
+                info: '📦 Batch Processing - ทำงานเป็นชุด จัดคิวอัตโนมัติ'
             },
             {
                 id: 3,
-                name: 'ยุคหลายพ่อครัว',
-                description: 'พ่อครัวหลายคนทำงานพร้อมกัน',
-                chefs: 3,
-                speed: 1.5,
+                name: 'ยุค Time-Sharing (1960s)',
+                description: 'Multiprogramming - พ่อครัวสลับทำหลายงาน (Context Switching)',
+                chefs: 2,
+                speed: 1.2,
                 ramLimit: 100,
                 cpuLimit: 100,
-                features: ['timeSharing', 'multiTask']
+                features: ['timeSharing', 'contextSwitch', 'multiTask'],
+                maxOrders: 5, // Can handle 5 concurrent orders
+                canQueue: true,
+                autoBatch: false,
+                contextSwitch: true, // Chef switches between orders
+                priority: false,
+                info: '🔄 Time-Sharing - พ่อครัวสลับทำงาน (Context Switching)'
             },
             {
                 id: 4,
-                name: 'ยุคสมัยใหม่',
-                description: 'ระบบอัตโนมัติเต็มรูปแบบ',
-                chefs: 5,
+                name: 'ยุค Modern OS (1980s+)',
+                description: 'Preemptive Multitasking - ระบบจัดลำดับความสำคัญอัตโนมัติ',
+                chefs: 3,
                 speed: 2.0,
                 ramLimit: 150,
                 cpuLimit: 150,
-                features: ['modernOS', 'ai', 'cloud']
+                features: ['modernOS', 'preemptive', 'priority', 'virtualMemory'],
+                maxOrders: 8, // Can handle many orders
+                canQueue: true,
+                autoBatch: false,
+                contextSwitch: true,
+                priority: true, // Priority scheduling
+                info: '🚀 Modern OS - Preemptive scheduling, Virtual memory, Priority queues'
             }
         ];
 
@@ -1359,6 +1742,11 @@
             // Set initial state
             updateDisplay();
             
+            // Initialize SCORM status
+            if (lmsConnected) {
+                console.log('SCORM initialized successfully');
+            }
+            
             // Start background music if needed
             if (gameState.soundEnabled) {
                 // playBackgroundMusic();
@@ -1375,6 +1763,13 @@
         }
 
         function startGame() {
+            // Initialize era selection onclick handlers
+            for (let i = 1; i <= 4; i++) {
+                const eraCard = document.getElementById(`era${i}`);
+                if (eraCard && i === 1) {
+                    eraCard.onclick = () => selectEra(i);
+                }
+            }
             showScreen('era');
         }
 
@@ -1387,9 +1782,120 @@
         }
 
         function selectEra(eraId) {
-            if (eraId > 1 && gameState.level < (eraId - 1) * 3) {
+            // Make unlocking easier for testing
+            if (eraId > 1 && gameState.level < (eraId - 1)) {
                 showAchievement('🔒', 'ยังล็อคอยู่', 'ต้องผ่านด่านก่อนหน้า', 0);
                 return;
+            }
+            
+            // Show learning content first
+            showLearningContent(eraId);
+        }
+        
+        function showLearningContent(eraId) {
+            const learningData = {
+                1: {
+                    title: '📚 ยุคไม่มี OS (1940s)',
+                    content: `
+                        <h3>💡 ก่อนเริ่มเกม - มาเรียนรู้กันก่อน!</h3>
+                        <div style="text-align: left; line-height: 1.8;">
+                            <p><strong>🖥️ ยุคคอมพิวเตอร์รุ่นแรก (1940s)</strong></p>
+                            <ul>
+                                <li>คอมพิวเตอร์ทำได้ทีละงานเท่านั้น (Single-tasking)</li>
+                                <li>ไม่มีระบบปฏิบัติการ - ต้องเขียนโปรแกรมควบคุมฮาร์ดแวร์โดยตรง</li>
+                                <li>เหมือนร้านอาหารที่มีพ่อครัวคนเดียว ทำได้ทีละจาน</li>
+                            </ul>
+                            <p><strong>🎮 ในเกมนี้:</strong></p>
+                            <ul>
+                                <li>ทำได้ทีละ 1 ออเดอร์เท่านั้น</li>
+                                <li>ต้องรอให้เสร็จก่อนถึงรับออเดอร์ใหม่</li>
+                                <li>RAM และ CPU จำกัดมาก</li>
+                            </ul>
+                        </div>
+                        <button class="btn success" onclick="startEraGame(${eraId})">🎮 เริ่มเล่น!</button>
+                    `
+                },
+                2: {
+                    title: '📚 ยุค Batch Processing (1950s)',
+                    content: `
+                        <h3>💡 ระบบ Batch - ทำงานเป็นชุด</h3>
+                        <div style="text-align: left; line-height: 1.8;">
+                            <p><strong>🖥️ การพัฒนาของ OS (1950s)</strong></p>
+                            <ul>
+                                <li>เริ่มมีระบบปฏิบัติการแบบง่าย ๆ</li>
+                                <li>สามารถจัดคิวงานได้ (Job Queue)</li>
+                                <li>ทำงานเป็นชุด (Batch) - รวมงานที่คล้ายกันทำพร้อมกัน</li>
+                            </ul>
+                            <p><strong>🎮 ในเกมนี้:</strong></p>
+                            <ul>
+                                <li>รับได้ 3 ออเดอร์พร้อมกัน (Batch)</li>
+                                <li>ทำพร้อมกันได้เร็วขึ้น 50%</li>
+                                <li>สามารถซื้อพ่อครัวเพิ่มได้</li>
+                            </ul>
+                        </div>
+                        <button class="btn success" onclick="startEraGame(${eraId})">🎮 เริ่มเล่น!</button>
+                    `
+                },
+                3: {
+                    title: '📚 ยุค Time-Sharing (1960s)',
+                    content: `
+                        <h3>💡 Multiprogramming & Context Switching</h3>
+                        <div style="text-align: left; line-height: 1.8;">
+                            <p><strong>🖥️ การแบ่งเวลา CPU (1960s)</strong></p>
+                            <ul>
+                                <li>CPU สลับทำหลายงานได้ (Context Switching)</li>
+                                <li>แต่ละงานได้รับเวลา CPU เป็นช่วงสั้น ๆ (Time Slice)</li>
+                                <li>ผู้ใช้รู้สึกเหมือนทำงานพร้อมกัน</li>
+                            </ul>
+                            <p><strong>🎮 ในเกมนี้:</strong></p>
+                            <ul>
+                                <li>พ่อครัว 2 คน สลับกันทำงาน</li>
+                                <li>จะเห็น [🔄 Active] และ [⏸️ Waiting]</li>
+                                <li>รับได้ 5 ออเดอร์พร้อมกัน</li>
+                            </ul>
+                        </div>
+                        <button class="btn success" onclick="startEraGame(${eraId})">🎮 เริ่มเล่น!</button>
+                    `
+                },
+                4: {
+                    title: '📚 ยุค Modern OS (1980s+)',
+                    content: `
+                        <h3>💡 Preemptive Multitasking & Priority</h3>
+                        <div style="text-align: left; line-height: 1.8;">
+                            <p><strong>🖥️ ระบบปฏิบัติการสมัยใหม่</strong></p>
+                            <ul>
+                                <li>Preemptive Multitasking - OS ควบคุมการแบ่งเวลาเอง</li>
+                                <li>Priority Scheduling - งานสำคัญได้ทำก่อน</li>
+                                <li>Virtual Memory - ใช้ Disk เป็น RAM เสมือน</li>
+                            </ul>
+                            <p><strong>🎮 ในเกมนี้:</strong></p>
+                            <ul>
+                                <li>พ่อครัว 3 คน ทำงานอย่างมีประสิทธิภาพ</li>
+                                <li>ลูกค้าที่รอนาน จะได้ลำดับความสำคัญ</li>
+                                <li>รับได้ 8 ออเดอร์พร้อมกัน</li>
+                            </ul>
+                        </div>
+                        <button class="btn success" onclick="startEraGame(${eraId})">🎮 เริ่มเล่น!</button>
+                    `
+                }
+            };
+            
+            const learning = learningData[eraId];
+            document.getElementById('learningTitle').textContent = learning.title;
+            document.getElementById('learningContent').innerHTML = learning.content;
+            showScreen('learning');
+        }
+        
+        function startEraGame(eraId) {
+            // Remove selected class from all era cards
+            document.querySelectorAll('.era-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selected class to current era
+            const selectedCard = document.getElementById(`era${eraId}`);
+            if (selectedCard) {
+                selectedCard.classList.add('selected');
             }
             
             gameState.currentEra = eraId;
@@ -1406,9 +1912,45 @@
             gameState.cpu = 0;
             gameState.activeOrders = [];
             gameState.customerQueue = [];
+            gameState.selectedCustomer = null; // Clear any previous selection
+            gameState.isPaused = false; // Ensure game is NOT paused when starting
             
             setupGameScreen();
             showScreen('game');
+            
+            // Reset pause button to play state
+            const pauseBtn = document.getElementById('pauseBtn');
+            if (pauseBtn) {
+                pauseBtn.textContent = '⏸️ หยุดชั่วคราว';
+                pauseBtn.classList.remove('success');
+                pauseBtn.classList.add('warning');
+            }
+            
+            // Show/hide batch indicator for Era 2
+            const batchIndicator = document.getElementById('batchIndicator');
+            if (batchIndicator) {
+                batchIndicator.style.display = config.id === 2 ? 'block' : 'none';
+            }
+            
+            // Update process button text based on era
+            const processBtn = document.getElementById('processBtn');
+            if (processBtn) {
+                if (config.id === 2) {
+                    processBtn.innerHTML = '📦 รับ Batch (3 คิว)';
+                } else {
+                    processBtn.innerHTML = '✅ รับออเดอร์';
+                }
+            }
+            
+            // Show era-specific message
+            const messages = {
+                1: '🎮 ยุค Manual Operation - ต้องทำทีละงานให้เสร็จก่อนรับใหม่!',
+                2: '📦 ยุค Batch Processing - กดรับเพื่อรับ 3 คิวพร้อมกัน! เพิ่มพ่อครัวได้!',
+                3: '🔄 ยุค Time-Sharing - พ่อครัวจะสลับทำงาน (Context Switching)!',
+                4: '🚀 ยุค Modern OS - Priority scheduling และ Virtual memory!'
+            };
+            showAchievement('🎆', 'เริ่มเกม!', messages[config.id], 0);
+            
             startGameLoop();
         }
 
@@ -1429,8 +1971,8 @@
                     <div class="station-task"></div>
                     <div class="progress-ring">
                         <svg width="30" height="30">
-                            <circle class="progress-bg" cx="15" cy="15" r="14"/>
-                            <circle class="progress-fill" cx="15" cy="15" r="14"/>
+                            <circle class="progress-bg" cx="15" cy="15" r="14" stroke="#e5e7eb" stroke-width="2" fill="none"/>
+                            <circle class="progress-fill" cx="15" cy="15" r="14" stroke="#4ade80" stroke-width="2" fill="none" stroke-dasharray="88" stroke-dashoffset="88" transform="rotate(-90 15 15)"/>
                         </svg>
                     </div>
                 `;
@@ -1440,11 +1982,27 @@
             // Setup upgrades based on era
             setupUpgrades();
             
-            // Show era info
+            // Show era info with unique features and clear distinctions
+            let eraSpecialFeature = '';
+            if (config.id === 1) {
+                eraSpecialFeature = '<div style="background: #fee2e2; color: #991b1b; padding: 10px; border-radius: 8px; margin-top: 10px;">⚠️ <strong>ไม่มี OS:</strong> ทำได้ทีละงานเท่านั้น!</div>';
+            } else if (config.id === 2) {
+                eraSpecialFeature = '<div style="background: #dbeafe; color: #1e3a8a; padding: 10px; border-radius: 8px; margin-top: 10px;">📦 <strong>Batch Processing:</strong> กดรับครั้งเดียว = รับ 3 คิวพร้อมกัน!</div>';
+            } else if (config.id === 3) {
+                eraSpecialFeature = '<div style="background: #fef3c7; color: #92400e; padding: 10px; border-radius: 8px; margin-top: 10px;">🔄 <strong>Context Switching:</strong> ดูพ่อครัวสลับทำงาน! (Active/Waiting)</div>';
+            } else if (config.id === 4) {
+                eraSpecialFeature = '<div style="background: #dcfce7; color: #14532d; padding: 10px; border-radius: 8px; margin-top: 10px;">⚡ <strong>Priority Scheduling:</strong> ลูกค้าที่รอนานจะได้ความสำคัญ!</div>';
+            }
+            
             document.getElementById('eraInfo').innerHTML = `
                 <strong>${config.name}</strong><br>
                 ${config.description}<br>
-                <small>พ่อครัว: ${config.chefs} คน | ความเร็ว: ${config.speed}x</small>
+                <div style="margin-top: 10px; padding: 10px; background: #f3f4f6; border-radius: 8px;">
+                    <strong>คุณสมบัติพิเศษ:</strong><br>
+                    ${config.info}<br>
+                    <small>👨‍🍳 พ่อครัว: ${config.chefs} คน | ⚡ ความเร็ว: ${config.speed}x | 📦 คิวสูงสุด: ${config.maxOrders}</small>
+                </div>
+                ${eraSpecialFeature}
             `;
         }
 
@@ -1457,9 +2015,9 @@
                     id: 'extraChef',
                     name: 'เพิ่มพ่อครัว',
                     cost: 100,
-                    description: 'เพิ่มพ่อครัวอีก 1 คน',
-                    effect: '+1 พ่อครัว',
-                    available: gameState.currentEra >= 2
+                    description: 'เพิ่มพ่อครัวอีก 1 คน (จำเป็นสำหรับ Time-sharing)',
+                    effect: '+1 พ่อครัว (เพิ่ม parallelism)',
+                    available: gameState.currentEra >= 2 && gameState.chefCount < 5
                 },
                 {
                     id: 'fasterCooking',
@@ -1541,7 +2099,28 @@
                 switch(upgrade.id) {
                     case 'extraChef':
                         gameState.chefCount++;
-                        setupGameScreen();
+                        // Recreate cooking stations with new chef count
+                        const stationsDiv = document.getElementById('cookingStations');
+                        const currentStationCount = stationsDiv.children.length;
+                        
+                        // Add new station
+                        for (let i = currentStationCount; i < gameState.chefCount; i++) {
+                            const station = document.createElement('div');
+                            station.className = 'station';
+                            station.id = `station${i}`;
+                            station.innerHTML = `
+                                <div class="station-chef">👨‍🍳</div>
+                                <div class="station-status">ว่าง</div>
+                                <div class="station-task"></div>
+                                <div class="progress-ring">
+                                    <svg width="30" height="30">
+                                        <circle class="progress-bg" cx="15" cy="15" r="14" stroke="#e5e7eb" stroke-width="2" fill="none"/>
+                                        <circle class="progress-fill" cx="15" cy="15" r="14" stroke="#4ade80" stroke-width="2" fill="none" stroke-dasharray="88" stroke-dashoffset="88" transform="rotate(-90 15 15)"/>
+                                    </svg>
+                                </div>
+                            `;
+                            stationsDiv.appendChild(station);
+                        }
                         break;
                     case 'fasterCooking':
                         gameState.chefSpeed *= 1.2;
@@ -1568,12 +2147,17 @@
             // Main game loop
             gameInterval = setInterval(updateGame, 100); // Update every 100ms
             
-            // Customer generation
-            customerInterval = setInterval(generateCustomer, 3000); // New customer every 3 seconds
+            // Customer generation - adjust based on era for difficulty
+            const customerDelay = 3000 + (4 - gameState.currentEra) * 500; // Faster customers in higher eras
+            customerInterval = setInterval(generateCustomer, customerDelay);
             
-            // Generate initial customers
-            for (let i = 0; i < 3; i++) {
-                setTimeout(generateCustomer, i * 1000);
+            // Generate initial customers based on era
+            const config = eraConfigs[gameState.currentEra - 1];
+            const initialCustomers = config.id === 1 ? 1 : 3;
+            for (let i = 0; i < initialCustomers; i++) {
+                setTimeout(() => {
+                    generateCustomer();
+                }, i * 1000);
             }
         }
 
@@ -1598,13 +2182,19 @@
 
         function generateCustomer() {
             if (gameState.isPaused) return;
-            if (gameState.customerQueue.length >= 8) return; // Max queue size
+            
+            const config = eraConfigs[gameState.currentEra - 1];
+            
+            // Era 1 has very limited queue
+            const maxQueue = config.id === 1 ? 2 : 8;
+            if (gameState.customerQueue.length >= maxQueue) return;
             
             const food = foodMenu[Math.floor(Math.random() * foodMenu.length)];
             const mood = customerMoods[0]; // Start happy
             
+            // Generate unique ID to prevent duplicates
             const customer = {
-                id: Date.now(),
+                id: `customer_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
                 order: food,
                 mood: mood,
                 patience: 100,
@@ -1624,6 +2214,11 @@
                 const customerDiv = document.createElement('div');
                 customerDiv.className = 'customer-card';
                 
+                // Preserve selection state after re-render
+                if (gameState.selectedCustomer === customer.id) {
+                    customerDiv.className += ' selected';
+                }
+                
                 if (customer.patience < 30) {
                     customerDiv.className += ' angry';
                 }
@@ -1641,55 +2236,191 @@
                     </div>
                 `;
                 
-                customerDiv.onclick = () => selectCustomer(customer.id);
+                // Fix click handler to pass event properly
+                customerDiv.onclick = (event) => {
+                    event.stopPropagation();
+                    selectCustomer(customer.id, event);
+                };
+                
+                // Add cursor pointer style
+                customerDiv.style.cursor = 'pointer';
+                
                 queueDiv.appendChild(customerDiv);
             });
         }
 
-        function selectCustomer(customerId) {
-            // Visual feedback
+        function selectCustomer(customerId, clickEvent) {
+            // Prevent selection if customer doesn't exist
+            const customerExists = gameState.customerQueue.some(c => c.id === customerId);
+            if (!customerExists) {
+                console.log('Customer not found in queue:', customerId);
+                return;
+            }
+            
+            // Debug log for Era 1
+            console.log('Selecting customer:', customerId, 'Current Era:', gameState.currentEra, 'Queue size:', gameState.customerQueue.length);
+            
+            // If clicking the same customer that's already selected, deselect
+            if (gameState.selectedCustomer === customerId) {
+                gameState.selectedCustomer = null;
+                document.querySelectorAll('.customer-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                showAchievement('↩️', 'ยกเลิกการเลือก', 'คลิกลูกค้าใหม่เพื่อเลือก', 0);
+                return;
+            }
+            
+            // Visual feedback - remove all selections first
             document.querySelectorAll('.customer-card').forEach(card => {
                 card.classList.remove('selected');
             });
-            event.currentTarget.classList.add('selected');
             
-            gameState.selectedCustomer = customerId;
+            // Find the clicked card and add selected class
+            const customerCards = document.querySelectorAll('.customer-card');
+            let found = false;
+            customerCards.forEach((card, index) => {
+                if (gameState.customerQueue[index] && gameState.customerQueue[index].id === customerId) {
+                    card.classList.add('selected');
+                    found = true;
+                    // Show visual feedback if we have click coordinates
+                    if (clickEvent) {
+                        showFloatingScore(clickEvent.clientX, clickEvent.clientY, '✓ เลือกแล้ว', true);
+                    }
+                }
+            });
+            
+            if (found) {
+                gameState.selectedCustomer = customerId;
+                
+                // In Era 1, provide immediate feedback
+                const config = eraConfigs[gameState.currentEra - 1];
+                if (config.id === 1) {
+                    const customer = gameState.customerQueue.find(c => c.id === customerId);
+                    if (customer) {
+                        showAchievement('👆', 'เลือกลูกค้า', `${customer.order.icon} ${customer.order.name}`, 0);
+                    }
+                }
+            } else {
+                console.log('Customer card not found for ID:', customerId);
+                gameState.selectedCustomer = null;
+            }
         }
 
         function processOrder() {
-            if (!gameState.selectedCustomer) {
-                showAchievement('⚠️', 'เลือกลูกค้าก่อน', 'คลิกที่ลูกค้าเพื่อเลือก', 0);
+            const config = eraConfigs[gameState.currentEra - 1];
+            
+            // Era 2: Batch processing - can select multiple customers
+            if (config.id === 2) {
+                // Allow batch selection without requiring selection
+                if (gameState.customerQueue.length === 0) {
+                    showAchievement('⚠️', 'ไม่มีลูกค้า', 'รอลูกค้าใหม่', 0);
+                    return;
+                }
+                
+                // Process batch queue (up to 3 orders)
+                const batchSize = Math.min(3, gameState.customerQueue.length);
+                const availableStations = getAvailableStations();
+                
+                if (availableStations.length === 0) {
+                    showAchievement('⏳', 'พ่อครัวไม่ว่าง', 'รอให้งานเสร็จ', 0);
+                    return;
+                }
+                
+                // Check if we can process the batch
+                const totalOrders = gameState.activeOrders.length + batchSize;
+                if (totalOrders > config.maxOrders) {
+                    showAchievement('📦', 'Batch เต็ม!', `รับได้อีก ${config.maxOrders - gameState.activeOrders.length} ออเดอร์`, 0);
+                    return;
+                }
+                
+                // Process batch
+                let processed = 0;
+                for (let i = 0; i < batchSize && i < availableStations.length; i++) {
+                    const customer = gameState.customerQueue[i];
+                    if (processSingleOrder(customer, availableStations[i])) {
+                        processed++;
+                    }
+                }
+                
+                if (processed > 0) {
+                    showAchievement('📦', 'Batch Processing!', `รับ ${processed} ออเดอร์พร้อมกัน`, 100);
+                }
                 return;
+            }
+            
+            // Check if there are any customers
+            if (gameState.customerQueue.length === 0) {
+                showAchievement('⚠️', 'ไม่มีลูกค้า', 'รอลูกค้าใหม่', 0);
+                return;
+            }
+            
+            // For Era 1 and other eras - handle selection
+            // If no selection, check if we can auto-select
+            if (!gameState.selectedCustomer) {
+                // In Era 1 with only one customer, auto-select
+                if (config.id === 1 && gameState.customerQueue.length === 1) {
+                    gameState.selectedCustomer = gameState.customerQueue[0].id;
+                    // Update visual selection
+                    const cards = document.querySelectorAll('.customer-card');
+                    if (cards.length > 0) {
+                        cards[0].classList.add('selected');
+                    }
+                } else {
+                    // Multiple customers or other eras - require manual selection
+                    showAchievement('⚠️', 'เลือกลูกค้าก่อน', 'คลิกที่ลูกค้าเพื่อเลือก', 0);
+                    return;
+                }
             }
             
             const customer = gameState.customerQueue.find(c => c.id === gameState.selectedCustomer);
-            if (!customer) return;
-            
-            // Check resources
-            if (gameState.ram + customer.order.ram > gameState.maxRam) {
-                showAchievement('❌', 'RAM เต็ม!', 'ล้างเคาน์เตอร์ก่อน', 0);
+            if (!customer) {
+                // Clear invalid selection
+                gameState.selectedCustomer = null;
+                showAchievement('⚠️', 'ไม่พบลูกค้า', 'ลูกค้าอาจจะไปแล้ว', 0);
                 return;
             }
             
-            if (gameState.cpu + customer.order.cpu > gameState.maxCpu) {
-                showAchievement('❌', 'CPU เต็ม!', 'รอให้พ่อครัวว่าง', 0);
+            // Era 1: Can only process one order at a time
+            if (config.id === 1 && gameState.activeOrders.length > 0) {
+                showAchievement('🚫', 'ยุคไม่มี OS!', 'ต้องรอให้งานเสร็จก่อน (No multitasking)', 0);
                 return;
             }
             
-            // Find available chef
+            // Check max orders limit based on era
+            if (gameState.activeOrders.length >= config.maxOrders) {
+                showAchievement('📊', 'คิวเต็ม!', `ยุคนี้รับได้สูงสุด ${config.maxOrders} ออเดอร์`, 0);
+                return;
+            }
+            
             const availableStation = findAvailableStation();
-            if (!availableStation) {
+            if (availableStation === null) {
                 showAchievement('⏳', 'พ่อครัวไม่ว่าง', 'รอสักครู่', 0);
                 return;
             }
             
-            // Create order
+            processSingleOrder(customer, availableStation);
+        }
+        
+        function processSingleOrder(customer, stationId) {
+            // Check resources
+            if (gameState.ram + customer.order.ram > gameState.maxRam) {
+                showAchievement('🔪', 'เคาน์เตอร์เต็ม!', `RAM ไม่พอ (ต้องการ ${customer.order.ram}, เหลือ ${gameState.maxRam - gameState.ram})`, 0);
+                return false;
+            }
+            
+            if (gameState.cpu + customer.order.cpu > gameState.maxCpu) {
+                showAchievement('👨‍🍳', 'พ่อครัวไม่ไหว!', `CPU ไม่พอ (ต้องการ ${customer.order.cpu}, เหลือ ${gameState.maxCpu - gameState.cpu})`, 0);
+                return false;
+            }
+            
+            // Create order with unique ID
             const order = {
-                id: customer.id,
+                id: `order_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                customerId: customer.id,
                 customer: customer,
                 food: customer.order,
                 progress: 0,
-                station: availableStation,
+                station: stationId,
                 startTime: Date.now()
             };
             
@@ -1704,20 +2435,42 @@
             gameState.cpu += customer.order.cpu;
             
             // Update station
-            updateStation(availableStation, order);
+            updateStation(stationId, order);
             
-            // Clear selection
+            // Clear selection since customer is now being processed
             gameState.selectedCustomer = null;
             
+            // Show success message
+            showAchievement('✅', 'รับออเดอร์แล้ว!', `${customer.order.icon} ${customer.order.name} - พ่อครัวกำลังทำ`, 50);
+            
+            // Re-render to update UI
             renderCustomers();
             renderActiveOrders();
             playSound('orderAccept');
+            
+            // Debug log
+            console.log('Order processed successfully. Remaining customers:', gameState.customerQueue.length);
+            
+            return true;
+        }
+        
+        function getAvailableStations() {
+            const available = [];
+            for (let i = 0; i < gameState.chefCount; i++) {
+                // Check if station is truly available (not assigned to any order)
+                const isAssigned = gameState.activeOrders.some(order => order.station === i);
+                if (!isAssigned) {
+                    available.push(i);
+                }
+            }
+            return available;
         }
 
         function findAvailableStation() {
             for (let i = 0; i < gameState.chefCount; i++) {
-                const station = document.getElementById(`station${i}`);
-                if (station && !station.classList.contains('active')) {
+                // Check if station is truly available (not assigned to any order)
+                const isAssigned = gameState.activeOrders.some(order => order.station === i);
+                if (!isAssigned) {
                     return i;
                 }
             }
@@ -1734,23 +2487,138 @@
         }
 
         function updateOrders() {
-            gameState.activeOrders.forEach(order => {
-                // Update progress based on chef speed
-                order.progress += (gameState.chefSpeed * 2) / order.food.time;
+            const completedOrders = [];
+            const config = eraConfigs[gameState.currentEra - 1];
+            
+            // Handle different processing modes based on era
+            if (config.id === 3 && gameState.activeOrders.length > 0) {
+                // Era 3: Time-sharing with VISIBLE context switching
+                // Only ONE chef works at a time, switching between orders
+                const switchInterval = 1500; // Switch every 1.5 seconds for visibility
+                const activeIndex = Math.floor((Date.now() / switchInterval) % gameState.activeOrders.length);
                 
-                // Update station progress ring
-                const station = document.getElementById(`station${order.station}`);
-                if (station) {
-                    const progressCircle = station.querySelector('.progress-fill');
-                    const offset = 88 - (88 * order.progress / 100);
-                    progressCircle.style.strokeDashoffset = offset;
+                gameState.activeOrders.forEach((order, index) => {
+                    const isActive = index === activeIndex;
+                    const station = document.getElementById(`station${order.station}`);
+                    
+                    if (station) {
+                        const statusDiv = station.querySelector('.station-status');
+                        const chefDiv = station.querySelector('.station-chef');
+                        
+                        if (isActive) {
+                            // This order is being worked on
+                            station.classList.add('active');
+                            if (statusDiv) statusDiv.textContent = '🔄 กำลังทำ (Active)';
+                            if (statusDiv) statusDiv.style.color = '#10b981';
+                            if (chefDiv) chefDiv.style.transform = 'scale(1.2)';
+                            // Only active order progresses
+                            order.progress += (gameState.chefSpeed * 150) / (order.food.time * 10);
+                        } else {
+                            // This order is waiting
+                            station.classList.add('active');
+                            if (statusDiv) statusDiv.textContent = '⏸️ รอคิว (Waiting)';
+                            if (statusDiv) statusDiv.style.color = '#f59e0b';
+                            if (chefDiv) chefDiv.style.transform = 'scale(1.0)';
+                            // Waiting orders don't progress
+                        }
+                    }
+                    
+                    order.progress = Math.min(100, order.progress);
+                    updateOrderProgress(order);
+                    
+                    if (order.progress >= 100) {
+                        completedOrders.push(order);
+                    }
+                });
+            } else if (config.id === 4 && gameState.activeOrders.length > 0) {
+                // Era 4: Modern OS - All orders progress with priority scheduling
+                gameState.activeOrders.forEach((order) => {
+                    const station = document.getElementById(`station${order.station}`);
+                    
+                    // Priority boost for angry customers
+                    const priorityBoost = order.customer.patience < 30 ? 1.5 : 1.0;
+                    
+                    if (station) {
+                        const statusDiv = station.querySelector('.station-status');
+                        station.classList.add('active');
+                        
+                        if (order.customer.patience < 30) {
+                            if (statusDiv) statusDiv.textContent = '⚡ ด่วน! (Priority)';
+                            if (statusDiv) statusDiv.style.color = '#ef4444';
+                        } else {
+                            if (statusDiv) statusDiv.textContent = '✅ กำลังทำ';
+                            if (statusDiv) statusDiv.style.color = '#10b981';
+                        }
+                    }
+                    
+                    // All orders progress simultaneously with priority
+                    order.progress += (gameState.chefSpeed * priorityBoost * 100) / (order.food.time * 10);
+                    order.progress = Math.min(100, order.progress);
+                    updateOrderProgress(order);
+                    
+                    if (order.progress >= 100) {
+                        completedOrders.push(order);
+                    }
+                });
+            } else {
+                // Era 1 & 2: Different processing
+                if (config.id === 2 && config.autoBatch) {
+                    // Era 2: Batch processing - all orders in batch get same progress
+                    // Orders with same station work together (batch efficiency)
+                    const stationOrders = {};
+                    gameState.activeOrders.forEach(order => {
+                        if (!stationOrders[order.station]) {
+                            stationOrders[order.station] = [];
+                        }
+                        stationOrders[order.station].push(order);
+                    });
+                    
+                    // Process each station's batch
+                    Object.keys(stationOrders).forEach(stationId => {
+                        const orders = stationOrders[stationId];
+                        const batchBonus = orders.length > 1 ? 1.5 : 1.0; // 50% speed boost for batch
+                        
+                        orders.forEach(order => {
+                            order.progress += (gameState.chefSpeed * batchBonus * 100) / (order.food.time * 10);
+                            order.progress = Math.min(100, order.progress);
+                            updateOrderProgress(order);
+                            
+                            // Update station status for batch
+                            const station = document.getElementById(`station${order.station}`);
+                            if (station) {
+                                station.querySelector('.station-status').textContent = `📦 Batch (${orders.length})`;
+                            }
+                            
+                            if (order.progress >= 100) {
+                                completedOrders.push(order);
+                            }
+                        });
+                    });
+                } else {
+                    // Era 1: Sequential processing - one at a time
+                    gameState.activeOrders.forEach(order => {
+                        order.progress += (gameState.chefSpeed * 100) / (order.food.time * 10);
+                        order.progress = Math.min(100, order.progress);
+                        updateOrderProgress(order);
+                        
+                        if (order.progress >= 100) {
+                            completedOrders.push(order);
+                        }
+                    });
                 }
-                
-                // Check if complete
-                if (order.progress >= 100) {
-                    completeOrder(order);
-                }
-            });
+            }
+            
+            // Complete orders after iteration
+            completedOrders.forEach(order => completeOrder(order));
+        }
+        
+        function updateOrderProgress(order) {
+            const station = document.getElementById(`station${order.station}`);
+            if (station) {
+                const progressCircle = station.querySelector('.progress-fill');
+                const offset = 88 - (88 * order.progress / 100);
+                progressCircle.style.strokeDashoffset = offset;
+            }
         }
 
         function completeOrder(order) {
@@ -1793,7 +2661,8 @@
         function updateCustomers() {
             gameState.customerQueue.forEach(customer => {
                 customer.waitTime++;
-                customer.patience = Math.max(0, customer.patience - 0.2);
+                // Patience decreases MUCH slower for learning
+                customer.patience = Math.max(0, customer.patience - 0.05); // 3x slower
                 
                 // Update mood based on patience
                 if (customer.patience > 80) {
@@ -1837,15 +2706,17 @@
         }
 
         function clearMemory() {
-            // Manual RAM clear
-            gameState.ram = Math.max(0, gameState.ram - 30);
-            showAchievement('🧹', 'ล้างเคาน์เตอร์', 'RAM -30', 0);
+            // Manual RAM clear - clear more RAM to be useful
+            const ramCleared = Math.min(gameState.ram, 50);
+            gameState.ram = Math.max(0, gameState.ram - ramCleared);
+            showAchievement('🧹', 'ล้างเคาน์เตอร์', `RAM -${ramCleared}`, 0);
             updateDisplay();
             playSound('clean');
         }
 
         function renderActiveOrders() {
             const ordersDiv = document.getElementById('activeOrders');
+            const config = eraConfigs[gameState.currentEra - 1];
             
             if (gameState.activeOrders.length === 0) {
                 ordersDiv.innerHTML = '<p style="color: #6b7280; text-align: center;">ยังไม่มีออเดอร์</p>';
@@ -1853,12 +2724,24 @@
             }
             
             ordersDiv.innerHTML = '';
-            gameState.activeOrders.forEach(order => {
+            gameState.activeOrders.forEach((order, index) => {
                 const orderDiv = document.createElement('div');
-                orderDiv.style.cssText = 'padding: 10px; background: #f3f4f6; border-radius: 8px; margin-bottom: 10px;';
+                let statusText = '';
+                let bgColor = '#f3f4f6';
+                
+                // Show different status based on era
+                if (config.contextSwitch && gameState.activeOrders.length > 1) {
+                    const isActive = Math.floor((Date.now() / 500) % gameState.activeOrders.length) === index;
+                    statusText = isActive ? ' [🔄 Active]' : ' [⏸️ Waiting]';
+                    bgColor = isActive ? '#ede9fe' : '#f3f4f6';
+                } else if (config.autoBatch) {
+                    statusText = ' [📦 Batch]';
+                }
+                
+                orderDiv.style.cssText = `padding: 10px; background: ${bgColor}; border-radius: 8px; margin-bottom: 10px; transition: all 0.3s;`;
                 orderDiv.innerHTML = `
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>${order.food.icon} ${order.food.name}</span>
+                        <span>${order.food.icon} ${order.food.name}${statusText}</span>
                         <span>${Math.round(order.progress)}%</span>
                     </div>
                     <div style="height: 6px; background: #e5e7eb; border-radius: 3px; margin-top: 5px;">
@@ -1876,6 +2759,13 @@
             document.getElementById('level').textContent = gameState.level;
             document.getElementById('satisfaction').textContent = `${gameState.satisfaction > 80 ? '😊' : gameState.satisfaction > 50 ? '😐' : '😞'} ${Math.round(gameState.satisfaction)}%`;
             
+            // Show era indicator in header
+            const config = eraConfigs[gameState.currentEra - 1];
+            const eraIndicator = document.querySelector('.game-title span:last-child');
+            if (eraIndicator) {
+                eraIndicator.textContent = `เกมร้านอาหาร OS - ${config.name}`;
+            }
+            
             // Update resources
             const ramPercent = Math.min(100, (gameState.ram / gameState.maxRam) * 100);
             const cpuPercent = Math.min(100, (gameState.cpu / gameState.maxCpu) * 100);
@@ -1888,8 +2778,9 @@
         }
 
         function checkGameStatus() {
-            // Check if level complete
-            if (gameState.customersServed >= 10) {
+            // Check if level complete - need to serve more customers
+            const customersNeeded = 3 + (gameState.currentEra - 1) * 2; // Era 1: 3, Era 2: 5, Era 3: 7, Era 4: 9
+            if (gameState.customersServed >= customersNeeded) {
                 completeLevel();
             }
             
@@ -1903,9 +2794,25 @@
             clearInterval(gameInterval);
             clearInterval(customerInterval);
             
+            // Show quiz first
+            showQuiz();
+        }
+        
+        function showLevelResults() {
             // Calculate final score
             const finalScore = gameState.score;
             const stars = calculateStars();
+            
+            // Store era score
+            if (!gameState.eraScores[gameState.currentEra]) {
+                gameState.eraScores[gameState.currentEra] = 0;
+            }
+            gameState.eraScores[gameState.currentEra] = Math.max(gameState.eraScores[gameState.currentEra], finalScore);
+            
+            // Mark era as completed
+            if (!gameState.erasCompleted.includes(gameState.currentEra)) {
+                gameState.erasCompleted.push(gameState.currentEra);
+            }
             
             // Update SCORM
             setSCORMScore(Math.min(100, Math.round(finalScore / 10)));
@@ -1927,6 +2834,15 @@
             // Check unlocks
             checkUnlocks();
             
+            // Check if this is Era 4 completion
+            if (gameState.currentEra === 4) {
+                // Update buttons for Era 4 completion
+                document.getElementById('resultsButtons').innerHTML = `
+                    <button class="btn" onclick="showEraSelection()">🔄 เล่นยุคอื่น</button>
+                    <button class="btn success" onclick="showKnowledgeReview()">📚 ดูสรุปความรู้</button>
+                `;
+            }
+            
             showScreen('results');
             playSound('levelComplete');
         }
@@ -1943,9 +2859,14 @@
             const unlocksDiv = document.getElementById('unlockedContent');
             let unlocked = [];
             
-            // Check if next era unlocked
-            if (gameState.currentEra < 4 && gameState.level >= gameState.currentEra * 3) {
+            // Check if next era unlocked - make it easier to unlock for testing
+            if (gameState.currentEra < 4 && gameState.level >= gameState.currentEra) {
                 unlocked.push(`🔓 ปลดล็อคยุค: ${eraConfigs[gameState.currentEra].name}`);
+                // Actually unlock the era
+                const nextEraElement = document.getElementById(`era${gameState.currentEra + 1}`);
+                if (nextEraElement) {
+                    nextEraElement.classList.remove('locked');
+                }
             }
             
             if (unlocked.length > 0) {
@@ -1976,8 +2897,15 @@
             gameState.customersServed = 0;
             gameState.satisfaction = 100;
             
-            // Increase difficulty
-            if (gameState.level % 3 === 0 && gameState.currentEra < 4) {
+            // Clear previous stars
+            const starElements = document.querySelectorAll('#starRating .star');
+            starElements.forEach(star => star.classList.remove('filled'));
+            
+            // Clear unlocked content
+            document.getElementById('unlockedContent').innerHTML = '';
+            
+            // Unlock next era every level for easier testing
+            if (gameState.currentEra < 4) {
                 // Unlock next era
                 const nextEra = document.getElementById(`era${gameState.currentEra + 1}`);
                 if (nextEra) {
@@ -1985,10 +2913,29 @@
                 }
             }
             
+            // Mark as complete in SCORM when reaching level 3
+            if (gameState.level >= 3 && lmsConnected) {
+                setSCORMComplete();
+            }
+            
             showEraSelection();
         }
 
         function showEraSelection() {
+            // Update era cards to show current unlock status
+            for (let i = 1; i <= 4; i++) {
+                const eraCard = document.getElementById(`era${i}`);
+                if (eraCard) {
+                    // Unlock based on level
+                    if (i === 1 || gameState.level >= (i - 1)) {
+                        eraCard.classList.remove('locked');
+                        eraCard.onclick = () => selectEra(i);
+                    } else {
+                        eraCard.classList.add('locked');
+                        eraCard.onclick = null;
+                    }
+                }
+            }
             showScreen('era');
         }
 
@@ -2088,6 +3035,259 @@
             document.getElementById('soundToggle').textContent = gameState.soundEnabled ? '🔊' : '🔇';
         }
 
+        // Educational Functions
+        function showLearningObjectives(eraId) {
+            const learningData = {
+                1: {
+                    title: 'Era 1: Manual Operation (No OS)',
+                    concepts: [
+                        { icon: '⚠️', text: 'ไม่มีระบบปฏิบัติการ - ทำงานทีละอย่างเท่านั้น' },
+                        { icon: '🐌', text: 'Sequential Processing - ไม่สามารถ multitask' },
+                        { icon: '⏳', text: 'CPU Idle Time - CPU ว่างเปล่าขณะรอ I/O' }
+                    ],
+                    gameplay: '🎮 ในเกม: พ่อครัวทำได้ทีละจาน ต้องรอให้เสร็จก่อนรับใหม่'
+                },
+                2: {
+                    title: 'Era 2: Batch Processing',
+                    concepts: [
+                        { icon: '📦', text: 'Batch System - จัดกลุ่มงานที่คล้ายกัน' },
+                        { icon: '📋', text: 'Job Queue - มีระบบคิวอัตโนมัติ' },
+                        { icon: '⚡', text: 'Better Throughput - ทำงานได้มากขึ้นในเวลาเท่าเดิม' }
+                    ],
+                    gameplay: '🎮 ในเกม: กดรับครั้งเดียวรับ 3 คิวพร้อมกัน + เพิ่มพ่อครัวได้'
+                },
+                3: {
+                    title: 'Era 3: Time-Sharing (Multiprogramming)',
+                    concepts: [
+                        { icon: '🔄', text: 'Context Switching - CPU สลับทำงานระหว่างโปรแกรม' },
+                        { icon: '⏱️', text: 'Time Slicing - แบ่งเวลา CPU เป็นช่วงสั้นๆ' },
+                        { icon: '🎭', text: 'Pseudo-parallelism - ดูเหมือนทำพร้อมกัน แต่จริงๆ สลับกัน' }
+                    ],
+                    gameplay: '🎮 ในเกม: ดูพ่อครัวสลับทำงาน - งานจะเปลี่ยนสถานะ Active/Waiting'
+                },
+                4: {
+                    title: 'Era 4: Modern OS (Preemptive)',
+                    concepts: [
+                        { icon: '🚀', text: 'Preemptive Scheduling - OS ยึด CPU คืนได้เมื่อจำเป็น' },
+                        { icon: '⭐', text: 'Priority Queue - งานสำคัญ/ด่วนทำก่อน' },
+                        { icon: '💾', text: 'Virtual Memory - ใช้ disk เป็น RAM เสมือน' }
+                    ],
+                    gameplay: '🎮 ในเกม: ลูกค้าโกรธ (แดง) = High Priority, จะได้รับการทำก่อน!'
+                }
+            };
+            
+            const data = learningData[eraId];
+            document.getElementById('learningTitle').innerHTML = `📚 ${data.title}`;
+            
+            let html = `
+                <div style="background: white; padding: 30px; border-radius: 15px;">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">สิ่งที่คุณจะเรียนรู้:</h3>
+                    <div style="margin-bottom: 25px;">
+                        ${data.concepts.map(c => `
+                            <div style="display: flex; align-items: center; margin: 15px 0; padding: 15px; background: #f3f4f6; border-radius: 10px;">
+                                <span style="font-size: 2em; margin-right: 15px;">${c.icon}</span>
+                                <span style="font-size: 1.1em;">${c.text}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div style="padding: 20px; background: #fef3c7; border-radius: 10px; margin-top: 20px;">
+                        <h4 style="color: #92400e; margin-bottom: 10px;">🎮 วิธีเล่น:</h4>
+                        <p style="font-size: 1.1em; color: #78350f;">${data.gameplay}</p>
+                    </div>
+                    <button class="btn success" onclick="startPlayingEra()" style="margin-top: 20px; width: 100%;">
+                        🎮 เริ่มเล่นและเรียนรู้
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('learningContent').innerHTML = html;
+            showScreen('learning');
+        }
+        
+        function startPlayingEra() {
+            const config = eraConfigs[gameState.currentEra - 1];
+            
+            // Apply era configuration
+            gameState.chefCount = config.chefs;
+            gameState.chefSpeed = config.speed;
+            gameState.maxRam = config.ramLimit;
+            gameState.maxCpu = config.cpuLimit;
+            
+            // Reset game state
+            gameState.ram = 0;
+            gameState.cpu = 0;
+            gameState.activeOrders = [];
+            gameState.customerQueue = [];
+            
+            setupGameScreen();
+            showScreen('game');
+            
+            // Show era-specific tip after 2 seconds
+            setTimeout(() => {
+                const tips = {
+                    1: '💡 ดูว่าพ่อครัวต้องทำงานให้เสร็จก่อนรับใหม่ (No multitasking)',
+                    2: '💡 ลองรับ 3 คิวพร้อมกัน และเพิ่มพ่อครัว ดู Batch efficiency',
+                    3: '💡 สังเกตว่าพ่อครัวสลับทำงาน - ดูสถานะ Active/Waiting',
+                    4: '💡 ลูกค้าโกรธ (แดง) จะได้ Priority สูง - ทำก่อน!'
+                };
+                showAchievement('💡', 'เคล็ดลับ', tips[eraId], 0);
+            }, 2000);
+            
+            startGameLoop();
+        }
+        
+        function showQuiz() {
+            const quizData = {
+                1: {
+                    question: 'ทำไมยุค Manual Operation จึงมีประสิทธิภาพต่ำ?',
+                    answers: [
+                        'เพราะไม่มี OS จัดการทรัพยากร - CPU ว่างขณะรอ I/O',
+                        'เพราะพ่อครัวน้อย',
+                        'เพราะ RAM น้อย',
+                        'เพราะคอมพิวเตอร์ช้า'
+                    ],
+                    correct: 0,
+                    explanation: 'ไม่มี OS จัดการ = CPU idle time สูง, ไม่สามารถ multitask'
+                },
+                2: {
+                    question: 'Batch Processing ช่วยเพิ่มอะไร?',
+                    answers: [
+                        'Throughput (งานที่ทำเสร็จต่อเวลา)',
+                        'Response time',
+                        'จำนวนพ่อครัว',
+                        'ความเร็ว CPU'
+                    ],
+                    correct: 0,
+                    explanation: 'Batch จัดกลุ่มงานที่คล้ายกัน ทำให้ทำงานได้มากขึ้น (Higher throughput)'
+                },
+                3: {
+                    question: 'Context Switching คืออะไร?',
+                    answers: [
+                        'การเปลี่ยนพ่อครัว',
+                        'CPU สลับระหว่างงานต่างๆ',
+                        'การลบงาน',
+                        'การเพิ่มความเร็ว'
+                    ],
+                    correct: 1,
+                    explanation: 'CPU บันทึกสถานะงานปัจจุบันแล้วสลับไปทำงานอื่น'
+                },
+                4: {
+                    question: 'Priority Scheduling คืออะไร?',
+                    answers: [
+                        'ทำงานตามลำดับเวลา',
+                        'ทำงานแบบสุ่ม',
+                        'งานสำคัญ/ด่วนได้ทำก่อน',
+                        'ทำงานช้าลง'
+                    ],
+                    correct: 2,
+                    explanation: 'OS จัดลำดับความสำคัญ งานด่วนได้ CPU ก่อน'
+                }
+            };
+            
+            const quiz = quizData[gameState.currentEra];
+            
+            // Create quiz popup
+            const popup = document.createElement('div');
+            popup.style.cssText = `
+                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0,0,0,0.8); display: flex;
+                justify-content: center; align-items: center; z-index: 9999;
+            `;
+            
+            popup.innerHTML = `
+                <div style="background: white; padding: 30px; border-radius: 15px; max-width: 600px;">
+                    <h2 style="color: #667eea; margin-bottom: 20px;">📝 ตรวจสอบความเข้าใจ</h2>
+                    <h3 style="margin-bottom: 20px;">${quiz.question}</h3>
+                    <div id="quizAnswers">
+                        ${quiz.answers.map((ans, i) => `
+                            <button class="btn" onclick="checkQuizAnswer(${i}, ${i === quiz.correct})" 
+                                    style="width: 100%; margin: 10px 0; text-align: left;">
+                                ${String.fromCharCode(65 + i)}. ${ans}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="quizResult" style="margin-top: 20px; display: none;">
+                        <p id="quizExplanation" style="padding: 15px; background: #f3f4f6; border-radius: 10px;"></p>
+                        <button class="btn success" onclick="continueToResults()" style="margin-top: 15px;">
+                            ดูผลคะแนน ➡️
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(popup);
+            window.currentQuizPopup = popup;
+            window.currentQuiz = quiz;
+        }
+        
+        function checkQuizAnswer(selected, isCorrect) {
+            const quiz = window.currentQuiz;
+            const resultDiv = document.getElementById('quizResult');
+            const explanationDiv = document.getElementById('quizExplanation');
+            
+            // Store quiz score
+            if (!gameState.quizScores) {
+                gameState.quizScores = {};
+            }
+            gameState.quizScores[gameState.currentEra] = isCorrect ? 100 : 0;
+            
+            if (isCorrect) {
+                gameState.score += 200;
+                explanationDiv.innerHTML = `✅ ถูกต้อง! ${quiz.explanation}`;
+                explanationDiv.style.background = '#dcfce7';
+                playSound('orderComplete');
+            } else {
+                explanationDiv.innerHTML = `❌ ไม่ถูก - ${quiz.explanation}`;
+                explanationDiv.style.background = '#fee2e2';
+                playSound('customerLeave');
+            }
+            
+            resultDiv.style.display = 'block';
+            
+            // Disable all answer buttons
+            document.querySelectorAll('#quizAnswers button').forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.5';
+            });
+        }
+        
+        function continueToResults() {
+            if (window.currentQuizPopup) {
+                window.currentQuizPopup.remove();
+            }
+            showLevelResults();
+        }
+        
+        function showLevelResults() {
+            // Calculate final score
+            const finalScore = gameState.score;
+            const stars = calculateStars();
+            
+            // Update SCORM
+            setSCORMScore(Math.min(100, Math.round(finalScore / 10)));
+            
+            // Show results
+            document.getElementById('finalScore').textContent = finalScore;
+            document.getElementById('ordersServed').textContent = gameState.customersServed;
+            document.getElementById('avgSatisfaction').textContent = `${Math.round(gameState.satisfaction)}%`;
+            document.getElementById('moneyEarned').textContent = `💰 ${gameState.money}`;
+            
+            // Show stars
+            const starElements = document.querySelectorAll('#starRating .star');
+            starElements.forEach(star => star.classList.remove('filled'));
+            for (let i = 0; i < stars; i++) {
+                setTimeout(() => {
+                    starElements[i].classList.add('filled');
+                }, i * 300);
+            }
+            
+            // Check unlocks
+            checkUnlocks();
+            
+            showScreen('results');
+            playSound('levelComplete');
+        }
+        
         function playSound(type) {
             if (!gameState.soundEnabled) return;
             
@@ -2133,6 +3333,138 @@
             
             oscillator.start();
             oscillator.stop(audioContext.currentTime + 0.1);
+        }
+        
+        // Knowledge Review Functions
+        function showKnowledgeReview() {
+            // Build review content
+            const reviewContent = `
+                <div class="review-section">
+                    <h4>🖥️ การพัฒนาของระบบปฏิบัติการ</h4>
+                    <ul>
+                        <li>ยุค Manual Operation (1940s-1950s): ไม่มี OS, ต้องควบคุมฮาร์ดแวร์โดยตรง</li>
+                        <li>ยุค Batch Processing (1950s-1960s): เริ่มมี OS แบบง่าย, ทำงานเป็นชุด</li>
+                        <li>ยุค Time-Sharing (1960s-1970s): CPU แบ่งเวลา, Context Switching</li>
+                        <li>ยุค Modern OS (1980s-ปัจจุบัน): Preemptive Multitasking, Virtual Memory</li>
+                    </ul>
+                </div>
+                
+                <div class="review-section">
+                    <h4>💡 แนวคิดสำคัญที่เรียนรู้</h4>
+                    <ul>
+                        <li>CPU Scheduling: การจัดคิวและลำดับการทำงาน</li>
+                        <li>Memory Management: การจัดการ RAM และ Virtual Memory</li>
+                        <li>Process Management: การจัดการโปรเซสหลายตัวพร้อมกัน</li>
+                        <li>Resource Allocation: การแบ่งปันทรัพยากรอย่างมีประสิทธิภาพ</li>
+                        <li>Context Switching: การสลับการทำงานระหว่างโปรเซส</li>
+                    </ul>
+                </div>
+                
+                <div class="review-section">
+                    <h4>🎮 การเปรียบเทียบกับร้านอาหาร</h4>
+                    <ul>
+                        <li>พ่อครัว = CPU (หน่วยประมวลผล)</li>
+                        <li>เคาน์เตอร์ = RAM (หน่วยความจำ)</li>
+                        <li>ตู้เก็บของ = Disk Storage</li>
+                        <li>ออเดอร์ = Process (โปรเซส)</li>
+                        <li>การจัดคิว = Scheduling Algorithm</li>
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('reviewContent').innerHTML = reviewContent;
+            
+            // Build progress overview
+            const progressGrid = document.getElementById('eraProgressGrid');
+            progressGrid.innerHTML = '';
+            
+            let totalScore = 0;
+            for (let i = 1; i <= 4; i++) {
+                const eraScore = gameState.eraScores[i] || 0;
+                const isCompleted = gameState.erasCompleted.includes(i);
+                totalScore += eraScore;
+                
+                const progressCard = document.createElement('div');
+                progressCard.className = isCompleted ? 'era-progress-card' : 'era-progress-card not-played';
+                progressCard.innerHTML = `
+                    <div style="font-size: 2em;">${isCompleted ? '✅' : '❌'}</div>
+                    <h5>${eraConfigs[i - 1].name}</h5>
+                    <div class="era-progress-score">${eraScore}</div>
+                    <div style="font-size: 0.9em; margin-top: 5px;">
+                        Quiz: ${gameState.quizScores && gameState.quizScores[i] ? '✅' : '❌'}
+                    </div>
+                `;
+                progressGrid.appendChild(progressCard);
+            }
+            
+            // Update total score
+            gameState.totalGameScore = totalScore;
+            document.getElementById('finalTotalScore').textContent = totalScore;
+            
+            // Build score breakdown
+            const breakdown = document.getElementById('scoreBreakdown');
+            breakdown.innerHTML = `
+                <div class="breakdown-item">
+                    <div class="breakdown-label">เกมที่เล่น</div>
+                    <div class="breakdown-value">${gameState.erasCompleted.length}/4</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="breakdown-label">Quiz ที่ตอบถูก</div>
+                    <div class="breakdown-value">${gameState.quizScores ? Object.values(gameState.quizScores).filter(s => s > 0).length : 0}</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="breakdown-label">คะแนนเฉลี่ย</div>
+                    <div class="breakdown-value">${Math.round(totalScore / Math.max(1, gameState.erasCompleted.length))}</div>
+                </div>
+            `;
+            
+            // Update SCORM completion if all eras completed
+            if (gameState.erasCompleted.length === 4) {
+                setSCORMComplete();
+                setSCORMScore(Math.min(100, Math.round(totalScore / 40))); // Max 4000 points = 100%
+            }
+            
+            showScreen('review');
+        }
+        
+        function restartGame() {
+            // Reset game state
+            gameState.currentEra = 1;
+            gameState.level = 1;
+            gameState.score = 0;
+            gameState.money = 50;
+            gameState.satisfaction = 100;
+            gameState.customersServed = 0;
+            gameState.erasCompleted = [];
+            gameState.eraScores = {};
+            gameState.quizScores = {};
+            gameState.totalGameScore = 0;
+            
+            // Reset all era locks
+            for (let i = 2; i <= 4; i++) {
+                const eraCard = document.getElementById(`era${i}`);
+                if (eraCard) {
+                    eraCard.classList.add('locked');
+                }
+            }
+            
+            showScreen('welcome');
+        }
+        
+        function completeAndExit() {
+            // Final SCORM update
+            setSCORMComplete();
+            setSCORMScore(Math.min(100, Math.round(gameState.totalGameScore / 40)));
+            
+            // Show completion message
+            showAchievement('🎉', 'จบบทเรียนแล้ว!', `คะแนนรวม: ${gameState.totalGameScore}`, 0);
+            
+            // Optionally close window or redirect
+            setTimeout(() => {
+                if (confirm('คุณได้จบบทเรียนแล้ว! ต้องการปิดหน้าต่างนี้หรือไม่?')) {
+                    window.close();
+                }
+            }, 2000);
         }
     </script>
 </body>
